@@ -3,7 +3,7 @@ package pl.fg.futurum.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.fg.futurum.SellerRepository;
+import pl.fg.futurum.repository.SellerRepository;
 import pl.fg.futurum.model.Seller;
 
 import java.util.List;
