@@ -17,4 +17,6 @@ public class Seller {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String username;
+    private String password;
+    private String firstname;
 }
