@@ -36,7 +36,7 @@
             </a>
         </td>
         <td>
-            <form th:action="@{/campaigns/{id}(id=${campaign.id})}" method="POST">
+            <form th:action="@{/campaigns/{id}(id=${campaign.id})}" th:method="DELETE">
                 <input type = "submit" th:value="Usuń"/>
             </form>
         </td>

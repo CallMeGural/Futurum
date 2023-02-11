@@ -9,7 +9,7 @@
 <a th:href="@{/campaigns/list}">Wróć do listy kampanii</a>
 <br/><br/>
 <form th:action="@{/campaigns/{id}(id=${campaign.id})}"
-      th:object="${campaign}" method="POST">
+      th:object="${campaign}" th:method="PUT">
     <table>
         <tr>
             <td>ID</td>
@@ -69,6 +69,16 @@
                 <span class="validationError"
                       th:if="${#fields.hasErrors('radius')}"
                       th:errors="*{radius}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Słowa kluczowe</td>
+            <td>:</td>
+            <td>
+                <input type="text" th:field="*{keywords}"/>
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('keywords')}"
+                      th:errors="*{keywords}"></span>
             </td>
         </tr>
     </table>

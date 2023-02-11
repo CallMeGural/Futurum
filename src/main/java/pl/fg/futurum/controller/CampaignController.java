@@ -48,13 +48,13 @@ public class CampaignController {
         return "campaignedit";
     }
 
-    @PostMapping("/campaings/{id}")
+    @PutMapping("/campaigns/{id}")
     public String updateCampaign(@PathVariable long id, @ModelAttribute("campaign") Campaign campaign) {
         campaignService.editCampaign(id, campaign);
         return "redirect:/campaigns/list";
     }
 
-    @PostMapping("campaigns/{id}")
+    @DeleteMapping("campaigns/{id}")
     public String deleteCampaign(@PathVariable long id) {
         campaignService.deleteCampaign(id);
         return "redirect:/campaigns/list";

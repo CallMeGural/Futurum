@@ -9,7 +9,7 @@
 <a th:href="@{/sellers/list}">Wróć do listy sprzedawców</a>
 <br/><br/>
 <form th:action="@{/sellers/{id}(id=${seller.id})}"
-      th:object="${seller}" method="POST">
+      th:object="${seller}" th:method="PUT">
     <table>
         <tr>
             <td>ID</td>

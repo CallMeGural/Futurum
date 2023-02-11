@@ -45,7 +45,7 @@ public class SellerController {
         return "selleredit";
     }
 
-    @PostMapping("/sellers/{id}")
+    @PutMapping("/sellers/{id}")
     public String updateSeller(@PathVariable long id, @ModelAttribute("seller") User seller) {
         sellerService.editSeller(seller,id);
         return "redirect:/sellers/list";
