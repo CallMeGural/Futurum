@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Campaign list</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+
+<body>
+
+<h1>Your orders</h1>
+
+<ul>
+    <li th:each="campaign : ${campaigns}">
+        <span th:text="${campaign.name}">NAME</span>
+        <span th:text="${campaign.bid}">BID</span>
+        <span th:text="${campaign.status}">STATUS</span>
+        <span th:text="${campaign.town}">TOWN</span>
+        <span th:text="${campaign.radius}">RADIUS</span>
+        <span th:text="${campaign.keywords}">keywords</span>
+        <span th:text="${campaign.user}">user</span>
+    </li>
+</ul>
+<a th:href="@{/}"><input type="submit" value="Menu"/></a>
+<a th:href="@{/campaignlist}"><input type="submit" value="Utwórz nową kampanię"/></a>
+</body>
+
+</html>

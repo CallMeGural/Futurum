@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taco Cloud</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+
+<form method="POST" th:action="@{/campaigns}" th:object="${campaign}">
+    <h1>Dodaj nową kampanię!</h1>
+
+    <label for="name">Nazwa kampanii: </label>
+    <input type="text" th:field="*{name}"/>
+    <br/>
+
+    <label for="bid">Wartość oferty: </label>
+    <input  type="text" th:field="*{bid}" placeholder="double"/>
+    <br/>
+
+    <label th:for="${#ids.next('Status')}">Status: </label>
+    <input type="checkbox" th:field="*{status}" />
+    <br/>
+
+    <label for="town">Miasto: </label>
+        <select th:field="*{town}">
+            <option th:each="town : ${towns}"
+                    th:value="${town}"
+                    th:text="${town}">MIASTO
+            </option>
+        </select>
+    <br/>
+
+    <label for="radius">Promień: </label>
+    <input type="text" th:field="*{radius}"/>
+    <br/>
+
+
+
+    <input type="submit" value="Utworz kampanie"/>
+</form>
+
+</body>
+</html>

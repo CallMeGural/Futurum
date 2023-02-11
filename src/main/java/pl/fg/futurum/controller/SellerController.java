@@ -2,7 +2,7 @@ package pl.fg.futurum.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.fg.futurum.model.Seller;
+import pl.fg.futurum.model.User;
 import pl.fg.futurum.service.SellerService;
 
 import java.util.List;
@@ -14,22 +14,22 @@ public class SellerController {
     private final SellerService sellerService;
 
     @GetMapping("/sellers")
-    public List<Seller> getAllSellers() {
+    public List<User> getAllSellers() {
         return sellerService.getAllSellers();
     }
 
     @GetMapping("/sellers/{id}")
-    public Seller getSingleSeller(@PathVariable long id) {
+    public User getSingleSeller(@PathVariable long id) {
         return sellerService.getSingleSeller(id);
     }
 
     @PostMapping("/sellers")
-    public Seller createNewSeller(@RequestBody Seller seller) {
-        return sellerService.createNewSeller(seller);
+    public User createNewSeller(@RequestBody User user) {
+        return sellerService.createNewSeller(user);
     }
 
     @PutMapping("/sellers/{id}")
-    public Seller editSeller(@PathVariable long id, String username) {
+    public User editSeller(@PathVariable long id, String username) {
         return sellerService.editSeller(id,username);
     }
 

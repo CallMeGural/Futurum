@@ -33,8 +33,17 @@ public class Campaign {
     private String keywords;
     @ManyToOne
     @JoinColumn(name = "seller_id")
-    private Seller seller;
+    private User user;
 
     @PrePersist
     void keywords() {this.keywords=this.name;}
+
+    public Campaign(String name, double bid, boolean status, Town town, double radius, User user) {
+        this.name = name;
+        this.bid = bid;
+        this.status = status;
+        this.town = town;
+        this.radius = radius;
+        this.user = user;
+    }
 }

@@ -1,21 +1,27 @@
 package pl.fg.futurum.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.fg.futurum.model.Campaign;
+import pl.fg.futurum.model.Town;
+import pl.fg.futurum.model.User;
+import pl.fg.futurum.repository.SellerRepository;
 import pl.fg.futurum.service.CampaignService;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class CampaignController {
 
     private final CampaignService campaignService;
 
-    @GetMapping("/campaigns")
-    public List<Campaign> getAllCampaigns() {
-        return campaignService.getAllCampaigns();
+    @GetMapping("/campaigns/list")
+    public /*List<Campaign>*/ String getAllCampaigns(Model model) {
+        model.addAttribute("campaigns",campaignService.getAllCampaigns());
+        return "campaignlist";
+        //return campaignService.getAllCampaigns();
     }
 
     @GetMapping("/campaigns/{id}")
@@ -23,9 +29,20 @@ public class CampaignController {
         return campaignService.getSingleCampaign(id);
     }
 
+    @GetMapping("/campaigns")
+    public String campaignForm(Model model) {
+        Town[] towns = Town.values();
+        model.addAttribute("towns",towns);
+        model.addAttribute("campaign",new Campaign());
+        return "campaignform";
+    }
+
     @PostMapping("/campaigns")
-    public Campaign addNewCampaign(@RequestBody Campaign campaign) {
-        return campaignService.addNewCampaign(campaign);
+    public /*Campaign*/String addNewCampaign(/*@RequestBody*/ @ModelAttribute("campaign") Campaign campaign,@AuthenticationPrincipal User seller) {
+        System.out.println("jestem w addNewCampaign");
+        campaign.setUser(seller);
+        campaignService.addNewCampaign(campaign);
+        return "redirect:/campaigns/list";
     }
 
     @PutMapping("/campaings/{id}")
