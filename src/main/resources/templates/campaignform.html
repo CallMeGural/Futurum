@@ -10,16 +10,31 @@
 <form method="POST" th:action="@{/campaigns}" th:object="${campaign}">
     <h1>Dodaj nową kampanię!</h1>
 
+    <div th:if="${#fields.hasErrors()}">
+            <span class="validationError">
+                Usuń wymienione problemy i spróbuj ponownie
+            </span>
+    </div>
+
     <label for="name">Nazwa kampanii: </label>
     <input type="text" th:field="*{name}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('name')}"
+          th:errors="*{name}"></span>
     <br/>
 
     <label for="bid">Wartość oferty: </label>
     <input  type="text" th:field="*{bid}" placeholder="double"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('bid')}"
+          th:errors="*{bid}"></span>
     <br/>
 
     <label th:for="${#ids.next('Status')}">Status: </label>
-    <input type="checkbox" th:field="*{status}" />
+    <input type="checkbox" th:field="*{status}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('status')}"
+          th:errors="*{status}"></span>
     <br/>
 
     <label for="town">Miasto: </label>
@@ -29,13 +44,17 @@
                     th:text="${town}">MIASTO
             </option>
         </select>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('town')}"
+          th:errors="*{town}"></span>
     <br/>
 
     <label for="radius">Promień: </label>
     <input type="text" th:field="*{radius}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('radius')}"
+          th:errors="*{radius}"></span>
     <br/>
-
-
 
     <input type="submit" value="Utworz kampanie"/>
 </form>

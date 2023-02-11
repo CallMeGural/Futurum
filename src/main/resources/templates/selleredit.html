@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+<h1>Edit a Contact </h1>
+<a th:href="@{/sellers/list}">Wróć do listy sprzedawców</a>
+<br/><br/>
+<form th:action="@{/sellers/{id}(id=${seller.id})}"
+      th:object="${seller}" method="POST">
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>:</td>
+            <td th:utext="${seller.id}">ID</td>
+        </tr>
+        <tr>
+            <td>Username</td>
+            <td>:</td>
+            <td>
+                <input type="text" th:field="*{username}" />
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('username')}"
+                      th:errors="*{username}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Firstname</td>
+            <td>:</td>
+            <td>
+                <input type="text" th:field="*{firstname}" />
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('firstname')}"
+                      th:errors="*{firstname}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Zawartość konta</td>
+            <td>:</td>
+            <td>
+                <input type="text" th:field="*{funds}" placeholder="double"/>
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('funds')}"
+                      th:errors="*{funds}"></span>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" th:value="Aktualizuj" />
+</form>
+
+<br/>
+</body>
+</html>

@@ -2,27 +2,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Campaign list</title>
+    <title>Lista kampanii</title>
     <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 
 <body>
 
-<h1>Your orders</h1>
+<h1>Lista kampanii</h1>
 
-<ul>
-    <li th:each="campaign : ${campaigns}">
-        <span th:text="${campaign.name}">NAME</span>
-        <span th:text="${campaign.bid}">BID</span>
-        <span th:text="${campaign.status}">STATUS</span>
-        <span th:text="${campaign.town}">TOWN</span>
-        <span th:text="${campaign.radius}">RADIUS</span>
-        <span th:text="${campaign.keywords}">keywords</span>
-        <span th:text="${campaign.user}">user</span>
-    </li>
-</ul>
+<table th:border="1">
+    <tr>
+        <th>Nazwa</th>
+        <th>Wartość oferty</th>
+        <th>Status</th>
+        <th>Miasto</th>
+        <th>Obszar</th>
+        <th>Słowa kluczowe</th>
+<!--        <th>Właściciel</th>-->
+        <th>Edytuj</th>
+        <th>Usuń</th>
+    </tr>
+    <tr th:each ="campaign : ${campaigns}">
+        <td th:text="${campaign.name}">NAME</td>
+        <td th:text="${campaign.bid}">BID</td>
+        <td th:text="${campaign.status}">STATUS</td>
+        <td th:text="${campaign.town}">TOWN</td>
+        <td th:text="${campaign.radius}">RADIUS</td>
+        <td th:text="${campaign.keywords}">keywords</td>
+<!--        <td th:text="${campaign.seller}">user</td>-->
+        <td>
+            <a th:href="@{/campaigns/{id}(id=${campaign.id})}">
+                <input type="submit" value="Edytuj"/>
+            </a>
+        </td>
+        <td>
+            <form th:action="@{/campaigns/{id}(id=${campaign.id})}" method="POST">
+                <input type = "submit" th:value="Usuń"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+
 <a th:href="@{/}"><input type="submit" value="Menu"/></a>
-<a th:href="@{/campaignlist}"><input type="submit" value="Utwórz nową kampanię"/></a>
+<a th:href="@{/campaigns}"><input type="submit" value="Utwórz nową kampanię"/></a>
 </body>
 
 </html>

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import pl.fg.futurum.model.Campaign;
+import pl.fg.futurum.model.User;
 import pl.fg.futurum.repository.CampaignRepository;
 
 import java.util.List;
@@ -16,8 +17,8 @@ public class CampaignService {
 
     private final CampaignRepository campaignRepository;
 
-    public List<Campaign> getAllCampaigns() {
-        return campaignRepository.findAll();
+    public List<Campaign> getSellerCampaigns(User seller) {
+        return campaignRepository.findAllBySeller(seller);
     }
 
     public Campaign getSingleCampaign(long id) {
@@ -31,7 +32,7 @@ public class CampaignService {
 
 
     @Transactional
-    public Campaign editCampaign(long id, Campaign campaign) {
+    public void editCampaign(long id, Campaign campaign) {
         Campaign edited = campaignRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Campaign does not exist"));
         edited.setName(campaign.getName());
@@ -39,6 +40,9 @@ public class CampaignService {
         edited.setBid(campaign.getBid());
         edited.setTown(campaign.getTown());
         edited.setRadius(campaign.getRadius());
-        return edited;
+    }
+
+    public void deleteCampaign(long id) {
+        campaignRepository.deleteById(id);
     }
 }

@@ -1,37 +1,60 @@
 package pl.fg.futurum.controller;
 
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import pl.fg.futurum.model.User;
 import pl.fg.futurum.service.SellerService;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class SellerController {
 
     private final SellerService sellerService;
 
-    @GetMapping("/sellers")
-    public List<User> getAllSellers() {
-        return sellerService.getAllSellers();
+    @GetMapping("/sellers/list")
+    public /*List<User>*/String getAllSellers(Model model) {
+        model.addAttribute("sellers",sellerService.getAllSellers());
+        return "sellerslist";
+        //return sellerService.getAllSellers();
     }
 
-    @GetMapping("/sellers/{id}")
-    public User getSingleSeller(@PathVariable long id) {
-        return sellerService.getSingleSeller(id);
+    @GetMapping("/sellers")
+    public String sellerForm(Model model) {
+        model.addAttribute("seller",new User());
+        return "sellersform";
     }
 
     @PostMapping("/sellers")
-    public User createNewSeller(@RequestBody User user) {
-        return sellerService.createNewSeller(user);
+    public String submitRegistration(@Valid User user, Errors error) {
+        if(error.hasErrors()) return "sellersform";
+        sellerService.createNewSeller(user);
+        return "redirect:/sellers/list";
     }
 
-    @PutMapping("/sellers/{id}")
-    public User editSeller(@PathVariable long id, String username) {
-        return sellerService.editSeller(id,username);
+    @GetMapping("/sellers/{id}")
+    public String getSingleSeller(Model model,@PathVariable long id) {
+        User seller = sellerService.getSingleSeller(id);
+        model.addAttribute("seller",seller);
+        return "selleredit";
     }
+
+    @PostMapping("/sellers/{id}")
+    public String updateSeller(@PathVariable long id, @ModelAttribute("seller") User seller) {
+        sellerService.editSeller(seller,id);
+        return "redirect:/sellers/list";
+    }
+
+//    @PutMapping("/sellers/{id}")
+//    public User editSeller(@PathVariable long id, String username) {
+//        return sellerService.editSeller(username,id);
+//    }
 
     @DeleteMapping("/sellers/{id}")
     public void deleteSeller(@PathVariable long id) {

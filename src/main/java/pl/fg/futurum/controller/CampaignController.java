@@ -1,14 +1,15 @@
 package pl.fg.futurum.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import pl.fg.futurum.model.Campaign;
 import pl.fg.futurum.model.Town;
 import pl.fg.futurum.model.User;
-import pl.fg.futurum.repository.SellerRepository;
 import pl.fg.futurum.service.CampaignService;
 
 @Controller
@@ -18,36 +19,45 @@ public class CampaignController {
     private final CampaignService campaignService;
 
     @GetMapping("/campaigns/list")
-    public /*List<Campaign>*/ String getAllCampaigns(Model model) {
-        model.addAttribute("campaigns",campaignService.getAllCampaigns());
+    public /*List<Campaign>*/ String getAllCampaigns(Model model,@AuthenticationPrincipal User seller) {
+        model.addAttribute("campaigns",campaignService.getSellerCampaigns(seller));
         return "campaignlist";
         //return campaignService.getAllCampaigns();
     }
 
-    @GetMapping("/campaigns/{id}")
-    public Campaign getSingleCampaign(@PathVariable long id) {
-        return campaignService.getSingleCampaign(id);
-    }
-
     @GetMapping("/campaigns")
     public String campaignForm(Model model) {
-        Town[] towns = Town.values();
-        model.addAttribute("towns",towns);
+        model.addAttribute("towns",Town.values());
         model.addAttribute("campaign",new Campaign());
         return "campaignform";
     }
 
     @PostMapping("/campaigns")
-    public /*Campaign*/String addNewCampaign(/*@RequestBody*/ @ModelAttribute("campaign") Campaign campaign,@AuthenticationPrincipal User seller) {
-        System.out.println("jestem w addNewCampaign");
-        campaign.setUser(seller);
+    public /*Campaign*/String addNewCampaign(/*@RequestBody*/ /*@ModelAttribute("campaign")*/@Valid Campaign campaign, Errors errors, @AuthenticationPrincipal User seller) {
+        if(errors.hasErrors()) return "campaignform";
+        campaign.setSeller(seller);
         campaignService.addNewCampaign(campaign);
         return "redirect:/campaigns/list";
     }
 
-    @PutMapping("/campaings/{id}")
-    public Campaign editCampaign(@PathVariable long id, Campaign campaign) {
-        return campaignService.editCampaign(id, campaign);
+    @GetMapping("/campaigns/{id}")
+    public String getSingleCampaign(Model model,@PathVariable long id) {
+        Campaign campaign=campaignService.getSingleCampaign(id);
+        model.addAttribute("towns",Town.values());
+        model.addAttribute("campaign",campaign);
+        return "campaignedit";
+    }
+
+    @PostMapping("/campaings/{id}")
+    public String updateCampaign(@PathVariable long id, @ModelAttribute("campaign") Campaign campaign) {
+        campaignService.editCampaign(id, campaign);
+        return "redirect:/campaigns/list";
+    }
+
+    @PostMapping("campaigns/{id}")
+    public String deleteCampaign(@PathVariable long id) {
+        campaignService.deleteCampaign(id);
+        return "redirect:/campaigns/list";
     }
 
 }

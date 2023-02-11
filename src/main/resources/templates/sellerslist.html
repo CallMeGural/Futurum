@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Campaign list</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+
+<body>
+
+<h1>Lista sprzedawców</h1>
+
+<table th:border="1">
+    <tr>
+        <th>Username</th>
+        <th>Firstname</th>
+        <th>Funds</th>
+        <th>Edit</th>
+    </tr>
+    <tr th:each ="seller : ${sellers}">
+        <td th:text="${seller.username}">USERNAME</td>
+        <td th:text="${seller.firstname}">FIRSTNAME</td>
+        <td th:text="${seller.funds}">FUNDS</td>
+        <td><a th:href="@{/sellers/{id}(id=${seller.id})}">Edit</a></td>
+    </tr>
+</table>
+
+<a th:href="@{/}"><input type="submit" value="Menu"/></a>
+<a th:href="@{/sellers}"><input type="submit" value="Dodaj nowego sprzedawcę"/></a>
+</body>
+
+</html>

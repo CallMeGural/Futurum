@@ -1,6 +1,10 @@
 package pl.fg.futurum.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,9 +27,14 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @NotEmpty(message = "Pole nie może być puste, a wartość nie może się powtarzać")
+    @Column(unique=true)
     private String username;
+    @Size(min=2, message = "Hasło musi mieć przynajmniej 2 znaki")
     private String password;
+    @Size(min=3)
     private String firstname;
+    @Min(200000)
     private double funds;
 
     public User(String username, String password, String firstname,double funds) {
@@ -64,9 +73,6 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User{" +
-                "firstname='" + firstname + '\'' +
-                ", funds=" + funds +
-                '}';
+        return firstname;
     }
 }

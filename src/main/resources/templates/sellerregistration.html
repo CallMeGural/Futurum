@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taco Cloud</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+
+<form method="POST" th:action="@{/sellers}" th:object="${seller}">
+    <h1>Dodaj nową kampanię!</h1>
+
+    <div th:if="${#fields.hasErrors()}">
+            <span class="validationError">
+                Usuń wymienione problemy i spróbuj ponownie
+            </span>
+    </div>
+
+    <label for="username">Nazwa użytkownika: </label>
+    <input type="text" th:field="*{username}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('username')}"
+          th:errors="*{username}"></span>
+    <br/>
+
+    <label for="password">Haslo: </label>
+    <input  type="text" th:field="*{password}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('password')}"
+          th:errors="*{password}"></span>
+    <br/>
+
+    <label for="firstname">Promień: </label>
+    <input type="text" th:field="*{firstname}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('firstname')}"
+          th:errors="*{firstname}"></span>
+    <br/>
+
+    <label for="funds">Zawartość konta: </label>
+    <input  type="text" th:field="*{funds}" placeholder="double"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('funds')}"
+          th:errors="*{funds}"></span>
+    <br/>
+
+    <input type="submit" value="Utworz sprzedawce"/>
+</form>
+
+</body>
+</html>
