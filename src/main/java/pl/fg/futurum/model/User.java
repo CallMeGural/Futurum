@@ -34,7 +34,7 @@ public class User implements UserDetails {
     private String password;
     @Size(min=3,max=20)
     private String firstname;
-    @Min(1000)
+    @Min(value = 0, message = "Musisz mieć czym płacić")
     private double funds;
 
     public User(String username, String password, String firstname,double funds) {

@@ -44,16 +44,18 @@ public class CampaignController {
 
     @GetMapping("/campaigns/{id}")
     public String getSingleCampaign(Model model,@PathVariable long id) {
+        Campaign campaign = campaignService.getSingleCampaign(id);
         model.addAttribute("towns",Town.values());
-        model.addAttribute("campaign",
-                campaignService.getSingleCampaign(id));
+        model.addAttribute("campaign",campaign);
         return "campaign_edit";
     }
 
     @PutMapping("/campaigns/{id}")
     public String updateCampaign(@PathVariable long id,
                                  @Valid @ModelAttribute("campaign") Campaign campaign,
-                                 Errors errors, Model model) {
+                                 Errors errors,
+                                 Model model) {
+        System.out.println(errors.getAllErrors());
         if(errors.hasErrors()) {
             model.addAttribute("towns",Town.values());
             return "campaign_edit";
