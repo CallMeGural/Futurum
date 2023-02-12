@@ -47,6 +47,7 @@ public class CampaignController {
         Campaign campaign = campaignService.getSingleCampaign(id);
         model.addAttribute("towns",Town.values());
         model.addAttribute("campaign",campaign);
+        model.addAttribute("accountError",false);
         return "campaign_edit";
     }
 
@@ -56,11 +57,13 @@ public class CampaignController {
                                  Errors errors,
                                  Model model) {
         System.out.println(errors.getAllErrors());
-        if(errors.hasErrors()) {
+        boolean accountError = campaignService.editCampaign(id, campaign);
+        if(errors.hasErrors() || !accountError) {
             model.addAttribute("towns",Town.values());
+            model.addAttribute("accountError",true);
             return "campaign_edit";
         }
-        campaignService.editCampaign(id, campaign);
+
         return "redirect:/campaigns/list";
     }
 

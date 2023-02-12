@@ -38,20 +38,23 @@ public class CampaignService {
 
 
     @Transactional
-    public void editCampaign(long id, Campaign campaign) {
+    public boolean editCampaign(long id, Campaign campaign) {
         Campaign edited = campaignRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Campaign does not exist"));
         edited.setName(campaign.getName());
         edited.setKeywords(campaign.getKeywords());
         edited.setTown(campaign.getTown());
         edited.setRadius(campaign.getRadius());
-
+        double newSellerFundsValue = edited.getSeller().getFunds()-campaign.getFund()+edited.getFund();
+        if(newSellerFundsValue<0) return false;
         sellerRepository.campaignDonation(
-                edited.getSeller().getFunds()-campaign.getFund()+edited.getFund(),
+                newSellerFundsValue,
                 edited.getSeller().getId());
+
         edited.setFund(campaign.getFund());
 
         if(edited.getFund()>edited.getBid()) edited.setStatus(true);
+        return true;
     }
 
     @Transactional
