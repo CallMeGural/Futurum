@@ -21,7 +21,6 @@ import java.util.List;
 public class SellerController {
 
     private final SellerService sellerService;
-    private final CampaignRepository sellerRepository;
 
     @GetMapping("/sellers/list")
     public String getAllSellers(Model model) {
