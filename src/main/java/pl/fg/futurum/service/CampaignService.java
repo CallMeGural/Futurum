@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import pl.fg.futurum.model.Campaign;
 import pl.fg.futurum.model.User;
 import pl.fg.futurum.repository.CampaignRepository;
+import pl.fg.futurum.repository.SellerRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -16,6 +17,7 @@ import java.util.NoSuchElementException;
 public class CampaignService {
 
     private final CampaignRepository campaignRepository;
+    private final SellerRepository sellerRepository;
 
     public List<Campaign> getSellerCampaigns(User seller) {
         return campaignRepository.findAllBySeller(seller);
@@ -26,7 +28,10 @@ public class CampaignService {
                 .orElseThrow(() -> new NoSuchElementException("Campaign does not exist"));
     }
 
-    public Campaign addNewCampaign(Campaign campaign) {
+    @Transactional
+    public Campaign addNewCampaign(Campaign campaign,User seller) {
+        campaign.setSeller(seller);
+        sellerRepository.updateSellerFundValue(campaign.getBid(),seller.getId());
         return campaignRepository.save(campaign);
     }
 

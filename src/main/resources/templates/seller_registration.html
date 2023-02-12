@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Taco Cloud</title>
-    <link rel="stylesheet" th:href="@{/styles.css}" />
+    <title>Nowy sprzedawca</title>
+    <link rel="stylesheet" th:href="@{styles.css}" />
 </head>
 <body>
 
-<form method="POST" th:action="@{/sellers}" th:object="${seller}">
-    <h1>Dodaj nową kampanię!</h1>
+<form method="POST" th:action="@{/register}" th:object="${seller}">
+    <h1>Dodaj nowego sprzedawcę!</h1>
 
     <div th:if="${#fields.hasErrors()}">
             <span class="validationError">
@@ -30,7 +30,7 @@
           th:errors="*{password}"></span>
     <br/>
 
-    <label for="firstname">Promień: </label>
+    <label for="firstname">Imię: </label>
     <input type="text" th:field="*{firstname}"/>
     <span class="validationError"
           th:if="${#fields.hasErrors('firstname')}"

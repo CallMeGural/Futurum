@@ -14,8 +14,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Table
 public class Campaign {
     @Id
@@ -24,7 +22,7 @@ public class Campaign {
     @NotEmpty(message = "Pole nie może być puste")
     private String name;
     @NotNull(message = "Pole nie może być puste")
-    @Min(value = 20000)
+    @Min(value = 10)
     private double bid;
     @NotNull(message = "Pole nie może być puste")
     private boolean status;
@@ -40,8 +38,10 @@ public class Campaign {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User seller;
 
-    @PrePersist
-    void keywords() {this.keywords=this.name;}
+
+    public Campaign() {
+        this.keywords="Slowa kluczowe";
+    }
 
     public Campaign(String name, double bid, boolean status, Town town, double radius, User seller) {
         this.name = name;
@@ -50,5 +50,14 @@ public class Campaign {
         this.town = town;
         this.radius = radius;
         this.seller = seller;
+        this.keywords="Slowa kluczowe";
+    }
+    public Campaign(String name, double bid, boolean status, Town town, double radius) {
+        this.name = name;
+        this.bid = bid;
+        this.status = status;
+        this.town = town;
+        this.radius = radius;
+        this.keywords="Slowa kluczowe";
     }
 }

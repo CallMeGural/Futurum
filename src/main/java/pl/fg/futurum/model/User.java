@@ -32,9 +32,9 @@ public class User implements UserDetails {
     private String username;
     @Size(min=2, message = "Hasło musi mieć przynajmniej 2 znaki")
     private String password;
-    @Size(min=3)
+    @Size(min=3,max=20)
     private String firstname;
-    @Min(200000)
+    @Min(1000)
     private double funds;
 
     public User(String username, String password, String firstname,double funds) {

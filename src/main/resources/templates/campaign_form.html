@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Taco Cloud</title>
+    <title>Nowa kampania</title>
     <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 <body>
@@ -54,6 +54,13 @@
     <span class="validationError"
           th:if="${#fields.hasErrors('radius')}"
           th:errors="*{radius}"></span>
+    <br/>
+
+    <label for="radius">Słowa kluczowe: </label>
+    <input type="text" th:field="*{keywords}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('keywords')}"
+          th:errors="*{keywords}"></span>
     <br/>
 
     <input type="submit" value="Utworz kampanie"/>

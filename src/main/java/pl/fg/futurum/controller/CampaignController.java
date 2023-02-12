@@ -33,10 +33,13 @@ public class CampaignController {
     }
 
     @PostMapping("/campaigns")
-    public /*Campaign*/String addNewCampaign(/*@RequestBody*/ /*@ModelAttribute("campaign")*/@Valid Campaign campaign, Errors errors, @AuthenticationPrincipal User seller) {
-        if(errors.hasErrors()) return "campaignform";
-        campaign.setSeller(seller);
-        campaignService.addNewCampaign(campaign);
+    public /*Campaign*/String addNewCampaign(@Valid Campaign campaign, Errors errors, @AuthenticationPrincipal User seller) {
+        if(errors.hasErrors()) {
+            System.out.println((errors.getAllErrors()));
+            return "campaign_form";
+        }
+        //campaign.setSeller(seller);
+        campaignService.addNewCampaign(campaign,seller);
         return "redirect:/campaigns/list";
     }
 

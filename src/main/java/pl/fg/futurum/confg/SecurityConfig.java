@@ -15,12 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    private final UserDetailsService userDetailsService;
-
-    public SecurityConfig(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
-
     @Bean
     public static PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -34,12 +28,14 @@ public class SecurityConfig {
                         .requestMatchers("/campaigns/**","/sellers/**")
                         .hasAuthority("USER")
 
-                        .requestMatchers("/")
+                        .requestMatchers("/","/register")
                         .permitAll()
                         .anyRequest()
                         .authenticated()
         )
-                .formLogin().permitAll();
+                .formLogin().permitAll()
+                .and()
+                .logout().logoutSuccessUrl("/");
         return http.build();
     }
 }

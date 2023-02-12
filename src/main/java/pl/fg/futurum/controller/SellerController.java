@@ -25,16 +25,16 @@ public class SellerController {
         //return sellerService.getAllSellers();
     }
 
-    @GetMapping("/sellers")
+    @GetMapping("/register")
     public String sellerForm(Model model) {
         model.addAttribute("seller",new User());
         return "seller_registration";
     }
 
-    @PostMapping("/sellers")
-    public String submitRegistration(@Valid User user, Errors error) {
-        if(error.hasErrors()) return "seller_registration";
-        sellerService.createNewSeller(user);
+    @PostMapping("/register")
+    public String submitRegistration(@Valid @ModelAttribute("seller") User seller, Errors errors) {
+        if(errors.hasErrors()) return "seller_registration";
+        sellerService.createNewSeller(seller);
         return "redirect:/sellers/list";
     }
 
