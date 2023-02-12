@@ -21,7 +21,7 @@ public class CampaignController {
     @GetMapping("/campaigns/list")
     public /*List<Campaign>*/ String getAllCampaigns(Model model,@AuthenticationPrincipal User seller) {
         model.addAttribute("campaigns",campaignService.getSellerCampaigns(seller));
-        return "campaignlist";
+        return "campaigns_list";
         //return campaignService.getAllCampaigns();
     }
 
@@ -29,7 +29,7 @@ public class CampaignController {
     public String campaignForm(Model model) {
         model.addAttribute("towns",Town.values());
         model.addAttribute("campaign",new Campaign());
-        return "campaignform";
+        return "campaign_form";
     }
 
     @PostMapping("/campaigns")
@@ -45,7 +45,7 @@ public class CampaignController {
         Campaign campaign=campaignService.getSingleCampaign(id);
         model.addAttribute("towns",Town.values());
         model.addAttribute("campaign",campaign);
-        return "campaignedit";
+        return "campaign_edit";
     }
 
     @PutMapping("/campaigns/{id}")

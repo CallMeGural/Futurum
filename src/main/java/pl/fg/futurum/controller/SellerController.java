@@ -21,19 +21,19 @@ public class SellerController {
     @GetMapping("/sellers/list")
     public /*List<User>*/String getAllSellers(Model model) {
         model.addAttribute("sellers",sellerService.getAllSellers());
-        return "sellerslist";
+        return "sellers_list";
         //return sellerService.getAllSellers();
     }
 
     @GetMapping("/sellers")
     public String sellerForm(Model model) {
         model.addAttribute("seller",new User());
-        return "sellersform";
+        return "seller_registration";
     }
 
     @PostMapping("/sellers")
     public String submitRegistration(@Valid User user, Errors error) {
-        if(error.hasErrors()) return "sellersform";
+        if(error.hasErrors()) return "seller_registration";
         sellerService.createNewSeller(user);
         return "redirect:/sellers/list";
     }
@@ -42,7 +42,7 @@ public class SellerController {
     public String getSingleSeller(Model model,@PathVariable long id) {
         User seller = sellerService.getSingleSeller(id);
         model.addAttribute("seller",seller);
-        return "selleredit";
+        return "seller_edit";
     }
 
     @PutMapping("/sellers/{id}")
