@@ -2,12 +2,18 @@ package pl.fg.futurum.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import pl.fg.futurum.model.Campaign;
 import pl.fg.futurum.model.User;
+import pl.fg.futurum.repository.CampaignRepository;
+import pl.fg.futurum.repository.SellerRepository;
 import pl.fg.futurum.service.SellerService;
+
+import java.util.List;
 
 
 @Controller
@@ -15,6 +21,7 @@ import pl.fg.futurum.service.SellerService;
 public class SellerController {
 
     private final SellerService sellerService;
+    private final CampaignRepository sellerRepository;
 
     @GetMapping("/sellers/list")
     public String getAllSellers(Model model) {
@@ -37,7 +44,8 @@ public class SellerController {
     }
 
     @GetMapping("/sellers/{id}")
-    public String getSingleSeller(Model model,@PathVariable long id) {
+    public String getSingleSeller(Model model, @PathVariable long id, @AuthenticationPrincipal User user) {
+        if(user.getId()!=id) return "redirect:/sellers/list";
         User seller = sellerService.getSingleSeller(id);
         model.addAttribute("seller",seller);
         return "seller_edit";
@@ -54,8 +62,12 @@ public class SellerController {
 
 
     @DeleteMapping("/sellers/{id}")
-    public void deleteSeller(@PathVariable long id) {
-        sellerService.deleteSeller(id);
+    public String deleteSeller(@PathVariable long id,@AuthenticationPrincipal User seller) {
+        if(seller.getId()==id) {
+            sellerService.deleteSeller(id);
+            return "redirect:/logout";
+        }
+        return "redirect:/sellers/list";
     }
 
 }

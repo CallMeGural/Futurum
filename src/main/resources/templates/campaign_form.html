@@ -7,8 +7,9 @@
 </head>
 <body>
 
+<h1>Dodaj nową kampanię!</h1>
+
 <form method="POST" th:action="@{/campaigns}" th:object="${campaign}">
-    <h1>Dodaj nową kampanię!</h1>
 
     <div th:if="${#fields.hasErrors()}">
             <span class="validationError">

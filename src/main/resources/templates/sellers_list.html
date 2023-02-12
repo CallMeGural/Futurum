@@ -12,16 +12,26 @@
 
 <table>
     <tr>
-        <th>Username</th>
-        <th>Firstname</th>
-        <th>Funds</th>
-        <th>Edit</th>
+        <th>Nazwa użytkownika</th>
+        <th>Imię</th>
+        <th>Zawartość konta</th>
+        <th>Edytuj</th>
+        <th>Usuń</th>
     </tr>
     <tr th:each ="seller : ${sellers}">
         <td th:text="${seller.username}">USERNAME</td>
         <td th:text="${seller.firstname}">FIRSTNAME</td>
         <td th:text="${seller.funds}">FUNDS</td>
-        <td><a th:href="@{/sellers/{id}(id=${seller.id})}">Edit</a></td>
+        <td>
+            <a th:href="@{/sellers/{id}(id=${seller.id})}">
+                <input type="submit" value="Edytuj"/>
+            </a>
+        </td>
+        <td>
+            <form th:action="@{/sellers/{id}(id=${seller.id})}" th:method="DELETE">
+                <input type = "submit" th:value="Usuń"/>
+            </form>
+        </td>
     </tr>
 </table>
 

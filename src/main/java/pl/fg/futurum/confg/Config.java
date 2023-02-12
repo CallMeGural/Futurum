@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import pl.fg.futurum.model.Campaign;
 import pl.fg.futurum.model.User;
 import pl.fg.futurum.model.Town;
@@ -42,7 +45,6 @@ public class Config {
             service.addNewCampaign(c4,s2);
             service.addNewCampaign(c5,s3);
             service.addNewCampaign(c6,s3);
-
         };
     }
 }
