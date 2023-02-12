@@ -5,11 +5,18 @@
     <link rel="stylesheet" type="text/css" th:href="@{/styles.css}"/>
 </head>
 <body>
-<h1>Edit a Contact </h1>
+<h1>Edytuj kampanię </h1>
 <a th:href="@{/campaigns/list}">Wróć do listy kampanii</a>
+
+
 <br/><br/>
 <form th:action="@{/campaigns/{id}(id=${campaign.id})}"
       th:object="${campaign}" th:method="PUT">
+    <div th:if="${#fields.hasErrors()}">
+            <span class="validationError">
+                Usuń wymienione problemy i spróbuj ponownie
+            </span>
+    </div>
     <table>
         <tr>
             <td>ID</td>

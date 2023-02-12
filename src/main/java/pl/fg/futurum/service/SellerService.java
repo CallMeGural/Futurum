@@ -36,11 +36,11 @@ public class SellerService {
     public void editSeller(User seller, long id) {
         User edited = sellerRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User does not exist"));
-        if(!seller.getUsername().isEmpty())
+        //if(!seller.getUsername().isEmpty())
             edited.setUsername(seller.getUsername());
-        if(!seller.getFirstname().isEmpty())
+        //if(!seller.getFirstname().isEmpty())
              edited.setFirstname(seller.getFirstname());
-        if(seller.getFunds()>=200000)
+        //if(seller.getFunds()>=200000)
             edited.setFunds(seller.getFunds());
     }
 

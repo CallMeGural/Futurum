@@ -1,6 +1,5 @@
 package pl.fg.futurum.controller;
 
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.fg.futurum.model.User;
 import pl.fg.futurum.service.SellerService;
 
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,10 +17,9 @@ public class SellerController {
     private final SellerService sellerService;
 
     @GetMapping("/sellers/list")
-    public /*List<User>*/String getAllSellers(Model model) {
+    public String getAllSellers(Model model) {
         model.addAttribute("sellers",sellerService.getAllSellers());
         return "sellers_list";
-        //return sellerService.getAllSellers();
     }
 
     @GetMapping("/register")
@@ -32,7 +29,8 @@ public class SellerController {
     }
 
     @PostMapping("/register")
-    public String submitRegistration(@Valid @ModelAttribute("seller") User seller, Errors errors) {
+    public String submitRegistration(@Valid @ModelAttribute("seller") User seller,
+                                     Errors errors) {
         if(errors.hasErrors()) return "seller_registration";
         sellerService.createNewSeller(seller);
         return "redirect:/sellers/list";
@@ -46,15 +44,14 @@ public class SellerController {
     }
 
     @PutMapping("/sellers/{id}")
-    public String updateSeller(@PathVariable long id, @ModelAttribute("seller") User seller) {
+    public String updateSeller(@PathVariable long id,
+                               @Valid @ModelAttribute("seller") User seller,
+                               Errors errors) {
+        if(errors.hasErrors()) return "seller_edit";
         sellerService.editSeller(seller,id);
         return "redirect:/sellers/list";
     }
 
-//    @PutMapping("/sellers/{id}")
-//    public User editSeller(@PathVariable long id, String username) {
-//        return sellerService.editSeller(username,id);
-//    }
 
     @DeleteMapping("/sellers/{id}")
     public void deleteSeller(@PathVariable long id) {

@@ -7,9 +7,19 @@
 <body>
 <h1>Edit a Contact </h1>
 <a th:href="@{/sellers/list}">Wróć do listy sprzedawców</a>
+
+
+
+
 <br/><br/>
 <form th:action="@{/sellers/{id}(id=${seller.id})}"
       th:object="${seller}" th:method="PUT">
+    <div th:if="${#fields.hasErrors()}">
+            <span class="validationError">
+                Usuń wymienione problemy i spróbuj ponownie
+            </span>
+    </div>
+
     <table>
         <tr>
             <td>ID</td>

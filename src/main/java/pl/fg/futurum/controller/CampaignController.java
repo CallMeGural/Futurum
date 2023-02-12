@@ -19,10 +19,11 @@ public class CampaignController {
     private final CampaignService campaignService;
 
     @GetMapping("/campaigns/list")
-    public /*List<Campaign>*/ String getAllCampaigns(Model model,@AuthenticationPrincipal User seller) {
-        model.addAttribute("campaigns",campaignService.getSellerCampaigns(seller));
+    public String getAllCampaigns(Model model,
+                                  @AuthenticationPrincipal User seller) {
+        model.addAttribute("campaigns",
+                campaignService.getSellerCampaigns(seller));
         return "campaigns_list";
-        //return campaignService.getAllCampaigns();
     }
 
     @GetMapping("/campaigns")
@@ -33,26 +34,30 @@ public class CampaignController {
     }
 
     @PostMapping("/campaigns")
-    public /*Campaign*/String addNewCampaign(@Valid Campaign campaign, Errors errors, @AuthenticationPrincipal User seller) {
-        if(errors.hasErrors()) {
-            System.out.println((errors.getAllErrors()));
-            return "campaign_form";
-        }
-        //campaign.setSeller(seller);
+    public String addNewCampaign(@Valid Campaign campaign,
+                                 Errors errors,
+                                 @AuthenticationPrincipal User seller) {
+        if(errors.hasErrors()) return "campaign_form";
         campaignService.addNewCampaign(campaign,seller);
         return "redirect:/campaigns/list";
     }
 
     @GetMapping("/campaigns/{id}")
     public String getSingleCampaign(Model model,@PathVariable long id) {
-        Campaign campaign=campaignService.getSingleCampaign(id);
         model.addAttribute("towns",Town.values());
-        model.addAttribute("campaign",campaign);
+        model.addAttribute("campaign",
+                campaignService.getSingleCampaign(id));
         return "campaign_edit";
     }
 
     @PutMapping("/campaigns/{id}")
-    public String updateCampaign(@PathVariable long id, @ModelAttribute("campaign") Campaign campaign) {
+    public String updateCampaign(@PathVariable long id,
+                                 @Valid @ModelAttribute("campaign") Campaign campaign,
+                                 Errors errors, Model model) {
+        if(errors.hasErrors()) {
+            model.addAttribute("towns",Town.values());
+            return "campaign_edit";
+        }
         campaignService.editCampaign(id, campaign);
         return "redirect:/campaigns/list";
     }

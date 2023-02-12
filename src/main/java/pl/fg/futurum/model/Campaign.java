@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -43,15 +41,6 @@ public class Campaign {
         this.keywords="Slowa kluczowe";
     }
 
-    public Campaign(String name, double bid, boolean status, Town town, double radius, User seller) {
-        this.name = name;
-        this.bid = bid;
-        this.status = status;
-        this.town = town;
-        this.radius = radius;
-        this.seller = seller;
-        this.keywords="Slowa kluczowe";
-    }
     public Campaign(String name, double bid, boolean status, Town town, double radius) {
         this.name = name;
         this.bid = bid;
