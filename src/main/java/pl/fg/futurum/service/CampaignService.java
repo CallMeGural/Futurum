@@ -3,7 +3,6 @@ package pl.fg.futurum.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import pl.fg.futurum.model.Campaign;
 import pl.fg.futurum.model.User;
 import pl.fg.futurum.repository.CampaignRepository;
@@ -31,7 +30,9 @@ public class CampaignService {
     @Transactional
     public void addNewCampaign(Campaign campaign,User seller) {
         campaign.setSeller(seller);
-        sellerRepository.campaignDonation(seller.getFunds()-campaign.getFund(),seller.getId());
+        sellerRepository.campaignDonation(
+                seller.getFunds()-campaign.getFund(),
+                seller.getId());
         campaignRepository.save(campaign);
     }
 
@@ -57,7 +58,9 @@ public class CampaignService {
     public void deleteCampaign(long id) {
         Campaign campaign = findSingleCampaignForClient(id);
         User seller = campaign.getSeller();
-        sellerRepository.campaignDonation(seller.getFunds()+campaign.getFund(),id);
+        sellerRepository.campaignDonation(
+                seller.getFunds()+campaign.getFund(),
+                seller.getId());
         campaignRepository.deleteById(id);
     }
 
