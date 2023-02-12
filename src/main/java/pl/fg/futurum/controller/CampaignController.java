@@ -11,12 +11,14 @@ import pl.fg.futurum.model.Campaign;
 import pl.fg.futurum.model.Town;
 import pl.fg.futurum.model.User;
 import pl.fg.futurum.service.CampaignService;
+import pl.fg.futurum.service.SellerService;
 
 @Controller
 @RequiredArgsConstructor
 public class CampaignController {
 
     private final CampaignService campaignService;
+    private final SellerService sellerService;
 
     @GetMapping("/campaigns/list")
     public String getAllCampaigns(Model model,
@@ -66,6 +68,20 @@ public class CampaignController {
     public String deleteCampaign(@PathVariable long id) {
         campaignService.deleteCampaign(id);
         return "redirect:/campaigns/list";
+    }
+
+    @GetMapping("/clients/campaigns")
+    public String showCampaigns(Model model) {
+        model.addAttribute("campaigns",campaignService.findAllCampaignsForClient());
+        return "campaigns_client";
+    }
+
+    @GetMapping("/clients/campaigns/{id}")
+    public String showSingleCampaign(@PathVariable long id,Model model) {
+        model.addAttribute("campaigns",campaignService.findSingleCampaignForClient(id));
+        campaignService.payForCampaign(id);
+        campaignService.closeCampaign(id);
+        return "campaigns_client";
     }
 
 }

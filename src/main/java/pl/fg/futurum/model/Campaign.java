@@ -23,6 +23,8 @@ public class Campaign {
     @Min(value = 10)
     private double bid;
     @NotNull(message = "Pole nie może być puste")
+    private double fund;
+    @NotNull(message = "Pole nie może być puste")
     private boolean status;
     @NotNull(message = "Pole nie może być puste")
     private Town town;
@@ -38,13 +40,15 @@ public class Campaign {
 
 
     public Campaign() {
+        this.status = true;
         this.keywords="Slowa kluczowe";
     }
 
-    public Campaign(String name, double bid, boolean status, Town town, double radius) {
+    public Campaign(String name, double bid, double fund, Town town, double radius) {
         this.name = name;
         this.bid = bid;
-        this.status = status;
+        this.fund = fund;
+        this.status = true;
         this.town = town;
         this.radius = radius;
         this.keywords="Slowa kluczowe";

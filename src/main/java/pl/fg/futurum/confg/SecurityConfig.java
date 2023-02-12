@@ -28,7 +28,7 @@ public class SecurityConfig {
                         .requestMatchers("/campaigns/**","/sellers/**")
                         .hasAuthority("USER")
 
-                        .requestMatchers("/","/register")
+                        .requestMatchers("/","/register","/clients/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated()

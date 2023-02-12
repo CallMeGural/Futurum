@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Main page</title>
+    <title>Strona główna</title>
 </head>
 <body>
-
-    <a th:href="@{/campaigns/list}"><input type="button" value="Wyswietl kampanie"/></a>
-    <a th:href="@{/sellers/list}"><input type="button" value="Wyswietl sprzedawcow"/></a>
-    <a th:href="@{/login}"><input type="button" value="Zaloguj się"/></a>
-    <a th:href="@{/logout}"><input type="button" value="Wyloguj się"/></a>
-    <a th:href="@{/register}"><input type="button" value="Zarejestruj się"/></a>
-
-
+    <div th:align="center">
+        <a th:href="@{/campaigns/list}"><input type="button" value="Wyswietl swoje kampanie"/></a><br/>
+        <a th:href="@{/sellers/list}"><input type="button" value="Wyswietl sprzedawcow"/></a><br/>
+        <a th:href="@{/login}"><input type="button" value="Zaloguj się"/></a><br/>
+        <a th:href="@{/logout}"><input type="button" value="Wyloguj się"/></a><br/>
+        <a th:href="@{/register}"><input type="button" value="Zarejestruj się"/></a><br/>
+        <a th:href="@{/clients/campaigns}"><input type="button" value="Zobacz kampanie"/></a><br/>
+    </div>
 </body>
 </html>

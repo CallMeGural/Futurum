@@ -31,6 +31,13 @@
           th:errors="*{bid}"></span>
     <br/>
 
+    <label for="fund">Dostępne środki: </label>
+    <input  type="text" th:field="*{fund}" placeholder="double"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('fund')}"
+          th:errors="*{fund}"></span>
+    <br/>
+
     <label th:for="${#ids.next('Status')}">Status: </label>
     <input type="checkbox" th:field="*{status}"/>
     <span class="validationError"

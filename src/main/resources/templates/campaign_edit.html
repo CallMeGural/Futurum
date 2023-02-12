@@ -34,7 +34,7 @@
             </td>
         </tr>
         <tr>
-            <td>Wartość oferty</td>
+            <td>Opłata</td>
             <td>:</td>
             <td>
                 <input type="text" th:field="*{bid}" />
@@ -44,15 +44,25 @@
             </td>
         </tr>
         <tr>
-            <td>Status</td>
+            <td>Dostępne środki</td>
             <td>:</td>
             <td>
-                <input type="checkbox" th:field="*{status}"/>
+                <input type="text" th:field="*{fund}" />
                 <span class="validationError"
-                      th:if="${#fields.hasErrors('status')}"
-                      th:errors="*{status}"></span>
+                      th:if="${#fields.hasErrors('fund')}"
+                      th:errors="*{fund}"></span>
             </td>
         </tr>
+<!--        <tr>-->
+<!--            <td>Status</td>-->
+<!--            <td>:</td>-->
+<!--            <td>-->
+<!--                <input type="checkbox" th:field="*{status}"/>-->
+<!--                <span class="validationError"-->
+<!--                      th:if="${#fields.hasErrors('status')}"-->
+<!--                      th:errors="*{status}"></span>-->
+<!--            </td>-->
+<!--        </tr>-->
         <tr>
             <td>Miasto</td>
             <td>:</td>

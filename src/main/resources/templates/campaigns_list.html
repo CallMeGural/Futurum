@@ -13,7 +13,8 @@
 <table>
     <tr>
         <th>Nazwa</th>
-        <th>Wartość oferty</th>
+        <th>Opłata</th>
+        <th>Dostępne środki</th>
         <th>Status</th>
         <th>Miasto</th>
         <th>Obszar</th>
@@ -24,6 +25,7 @@
     <tr th:each ="campaign : ${campaigns}">
         <td th:text="${campaign.name}">NAME</td>
         <td th:text="${campaign.bid}">BID</td>
+        <td th:text="${campaign.fund}">Fund</td>
         <td th:text="${campaign.status}">STATUS</td>
         <td th:text="${campaign.town}">TOWN</td>
         <td th:text="${campaign.radius}">RADIUS</td>

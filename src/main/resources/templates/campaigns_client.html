@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista kampanii reklamowych</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+
+<body>
+
+<h1>Lista kampanii</h1>
+
+<table>
+    <tr>
+        <th>Nazwa</th>
+    </tr>
+    <tr th:each ="campaign : ${campaigns}">
+        <td>
+            <a th:href="@{/clients/campaigns/{id}(id=${campaign.id})}" th:text ="${campaign.name}"></a>
+        </td>
+    </tr>
+</table>
+
+<a th:href="@{/}"><input type="submit" value="Menu"/></a>
+
+</body>
+
+</html>
